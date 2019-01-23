@@ -14,7 +14,7 @@ namespace CalculatorLibraryCA2.Tests
         [TestMethod()]
         public void AddTest()
         {
-            Assert.Fail();
+            Assert.AreEqual(0, Calculator.Add(0,0) );
         }
     }
 }
