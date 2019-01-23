@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CalculatorLibraryCA2.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class CalculatorTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void AddTest()
         {
             Assert.AreEqual(0, Calculator.Add(0, 0));
@@ -22,7 +22,33 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(5, Calculator.Add(2, 3));
         }
 
-        [TestMethod()]
+        /*[TestMethod]
+        public void DivideByZeroTest()
+        {
+            Assert.AreEqual(0, Calculator.Divide(0, 0));
+            Assert.AreEqual(0, Calculator.Divide(1, 0));
+            Assert.AreEqual(0.5, Calculator.Divide(1, 0));
+            Assert.AreEqual(0, Calculator.Divide(0, 0));
+            Assert.AreEqual(4, Calculator.Divide(2, 0));
+            Assert.AreEqual(6, Calculator.Divide(2, 0));
+            Assert.AreEqual(-6, Calculator.Divide(2, 0));
+            Assert.AreEqual(-6, Calculator.Divide(-2, 0));
+            Assert.AreEqual(6, Calculator.Divide(-2, 0));
+        }*/
+
+        [TestMethod]
+        public void DivideTest()
+        {
+            Assert.AreEqual(2, Calculator.Divide(1, 0.5));
+            Assert.AreEqual(0, Calculator.Divide(0, -1));
+            Assert.AreEqual(0, Calculator.Divide(2, 2));
+            Assert.AreEqual(6, Calculator.Divide(2, 3));
+            Assert.AreEqual(-6, Calculator.Divide(2, -3));
+            Assert.AreEqual(-6, Calculator.Divide(-2, 3));
+            Assert.AreEqual(6, Calculator.Divide(-2, -3));
+        }
+
+        [TestMethod]
         public void MultiplyTest()
         {
             Assert.AreEqual(0, Calculator.Multiply(0, 0));
@@ -36,7 +62,7 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(6, Calculator.Multiply(-2, -3));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void SubtractTest()
         {
             Assert.AreEqual(0, Calculator.Subtract(0, 0));
