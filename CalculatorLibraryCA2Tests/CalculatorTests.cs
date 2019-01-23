@@ -41,11 +41,11 @@ namespace CalculatorLibraryCA2.Tests
         {
             Assert.AreEqual(2, Calculator.Divide(1, 0.5));
             Assert.AreEqual(0, Calculator.Divide(0, -1));
-            Assert.AreEqual(0, Calculator.Divide(2, 2));
-            Assert.AreEqual(6, Calculator.Divide(2, 3));
-            Assert.AreEqual(-6, Calculator.Divide(2, -3));
-            Assert.AreEqual(-6, Calculator.Divide(-2, 3));
-            Assert.AreEqual(6, Calculator.Divide(-2, -3));
+            Assert.AreEqual(1, Calculator.Divide(2, 2));
+            Assert.AreEqual(1.5, Calculator.Divide(3, 2));
+            //Assert.AreEqual(-0.666666666666667, Calculator.Divide(2, -3));
+            Assert.AreEqual(-1.5, Calculator.Divide(-3, 2));
+            Assert.AreEqual(1.5, Calculator.Divide(-3, -2));
         }
 
         [TestMethod]
