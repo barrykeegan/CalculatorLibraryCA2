@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CalculatorLibraryCA2
 {
-    public class Class1
+    public class Calculator
     {
+        public double Add(double n1, double n2)
+        {
+            return 0.0;
+        }
     }
 }
