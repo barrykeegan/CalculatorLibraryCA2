@@ -32,5 +32,19 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(0, Calculator.Subtract(2, 2));
             Assert.AreEqual(-1, Calculator.Subtract(2, 3));
         }
+
+        [TestMethod()]
+        public void MultiplyTest()
+        {
+            Assert.AreEqual(0, Calculator.Multiply(0, 0));
+            Assert.AreEqual(0, Calculator.Multiply(1, 0));
+            Assert.AreEqual(0.5, Calculator.Multiply(1, 0.5));
+            Assert.AreEqual(0, Calculator.Multiply(0, -1));
+            Assert.AreEqual(4, Calculator.Multiply(2, 2));
+            Assert.AreEqual(6, Calculator.Multiply(2, 3));
+            Assert.AreEqual(-6, Calculator.Multiply(2, -3));
+            Assert.AreEqual(-6, Calculator.Multiply(-2, 3));
+            Assert.AreEqual(6, Calculator.Multiply(-2, -3));
+        }
     }
 }
