@@ -22,19 +22,21 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(5, Calculator.Add(2, 3));
         }
 
-        /*[TestMethod]
-        public void DivideByZeroTest()
+        [TestMethod]
+        public void DivideByZeroGivesInfinityTest()
         {
-            Assert.AreEqual(0, Calculator.Divide(0, 0));
-            Assert.AreEqual(0, Calculator.Divide(1, 0));
-            Assert.AreEqual(0.5, Calculator.Divide(1, 0));
-            Assert.AreEqual(0, Calculator.Divide(0, 0));
-            Assert.AreEqual(4, Calculator.Divide(2, 0));
-            Assert.AreEqual(6, Calculator.Divide(2, 0));
-            Assert.AreEqual(-6, Calculator.Divide(2, 0));
-            Assert.AreEqual(-6, Calculator.Divide(-2, 0));
-            Assert.AreEqual(6, Calculator.Divide(-2, 0));
-        }*/
+            Assert.AreEqual(double.PositiveInfinity, Calculator.Divide(1.5, 0));
+            Assert.AreEqual(double.NegativeInfinity, Calculator.Divide(-1.5, 0));
+            Assert.AreEqual(double.PositiveInfinity, Calculator.Divide(1, 0));
+            //Assert.AreEqual(0, Calculator.Divide(1, 0));
+            //Assert.AreEqual(0.5, Calculator.Divide(1, 0));
+            //Assert.AreEqual(0, Calculator.Divide(0, 0));
+            //Assert.AreEqual(4, Calculator.Divide(2, 0));
+            //Assert.AreEqual(6, Calculator.Divide(2, 0));
+            //Assert.AreEqual(-6, Calculator.Divide(2, 0));
+            //Assert.AreEqual(-6, Calculator.Divide(-2, 0));
+            //Assert.AreEqual(6, Calculator.Divide(-2, 0));
+        }
 
         [TestMethod]
         public void DivideTest()
@@ -43,7 +45,6 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(0, Calculator.Divide(0, -1));
             Assert.AreEqual(1, Calculator.Divide(2, 2));
             Assert.AreEqual(1.5, Calculator.Divide(3, 2));
-            //Assert.AreEqual(-0.666666666666667, Calculator.Divide(2, -3));
             Assert.AreEqual(-1.5, Calculator.Divide(-3, 2));
             Assert.AreEqual(1.5, Calculator.Divide(-3, -2));
         }
