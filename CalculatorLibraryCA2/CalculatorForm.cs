@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace CalculatorLibraryCA2
 {
-    public partial class CalculatorForm : Form
+    public partial class frmCalculator : Form
     {
-        public CalculatorForm()
+        public frmCalculator()
         {
             InitializeComponent();
         }
+
+        private void CalculatorForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
-}
