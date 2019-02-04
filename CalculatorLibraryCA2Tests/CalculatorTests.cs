@@ -23,6 +23,12 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void BaseToExponentTest()
+        {
+            Assert.AreEqual(double.NaN, Calculator.BaseToExponent(0, 0));
+        }
+
+        [TestMethod]
         public void CubedTest()
         {
             Assert.AreEqual(0, Calculator.Cube(0));
