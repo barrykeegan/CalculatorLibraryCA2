@@ -29,6 +29,8 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(1, Calculator.Cube(1));
             Assert.AreEqual(27, Calculator.Cube(3));
             Assert.AreEqual(-27, Calculator.Cube(-3));
+            Assert.AreEqual(0.125, Calculator.Cube(0.5));
+            Assert.AreEqual(3.375, Calculator.Cube(1.5));
         }
 
         [TestMethod]
@@ -72,6 +74,8 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(4, Calculator.Square(2));
             Assert.AreEqual(16, Calculator.Square(4));
             Assert.AreEqual(16, Calculator.Square(-4));
+            Assert.AreEqual(0.25, Calculator.Square(0.5));
+            Assert.AreEqual(2.25, Calculator.Square(1.5));
         }
 
         [TestMethod]
