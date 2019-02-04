@@ -25,6 +25,11 @@ namespace CalculatorLibraryCA2
             return n1 * n2; //Version 2
         }
 
+        public static double Square(double x)
+        {
+            return x * x;
+        }
+
         public static double Subtract(double n1, double n2)
         {
             //return 0.0; //Original

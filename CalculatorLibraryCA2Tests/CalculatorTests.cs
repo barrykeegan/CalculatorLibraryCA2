@@ -66,6 +66,8 @@ namespace CalculatorLibraryCA2.Tests
         [TestMethod]
         public void SquaredTest()
         {
+            Assert.AreEqual(0, Calculator.Square(0));
+            Assert.AreEqual(1, Calculator.Square(1));
             Assert.AreEqual(4, Calculator.Square(2));
         }
 
