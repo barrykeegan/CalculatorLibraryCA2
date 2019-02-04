@@ -64,6 +64,12 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void SquaredTest()
+        {
+            Assert.AreEqual(4, Calculator.Square(2));
+        }
+
+        [TestMethod]
         public void SubtractTest()
         {
             Assert.AreEqual(0, Calculator.Subtract(0, 0));
