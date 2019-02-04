@@ -26,6 +26,7 @@ namespace CalculatorLibraryCA2.Tests
         public void CubedTest()
         {
             Assert.AreEqual(0, Calculator.Cube(0));
+            Assert.AreEqual(1, Calculator.Cube(1));
         }
 
         [TestMethod]
@@ -34,14 +35,6 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(double.PositiveInfinity, Calculator.Divide(1.5, 0));
             Assert.AreEqual(double.NegativeInfinity, Calculator.Divide(-1.5, 0));
             Assert.AreEqual(double.PositiveInfinity, Calculator.Divide(1, 0));
-            //Assert.AreEqual(0, Calculator.Divide(1, 0));
-            //Assert.AreEqual(0.5, Calculator.Divide(1, 0));
-            //Assert.AreEqual(0, Calculator.Divide(0, 0));
-            //Assert.AreEqual(4, Calculator.Divide(2, 0));
-            //Assert.AreEqual(6, Calculator.Divide(2, 0));
-            //Assert.AreEqual(-6, Calculator.Divide(2, 0));
-            //Assert.AreEqual(-6, Calculator.Divide(-2, 0));
-            //Assert.AreEqual(6, Calculator.Divide(-2, 0));
         }
 
         [TestMethod]

@@ -16,7 +16,8 @@ namespace CalculatorLibraryCA2
 
         public static double Cube(double x)
         {
-            return 0;
+            //return 0; Original
+            return Math.Pow(x, 3);
         }
 
         public static double Divide(double n1, double n2)
