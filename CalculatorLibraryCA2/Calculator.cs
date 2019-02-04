@@ -14,6 +14,11 @@ namespace CalculatorLibraryCA2
             return n1 + n2; //Version 2
         }
 
+        public static double BaseToExponent(double x, double y)
+        {
+            return double.NaN;
+        }
+
         public static double Cube(double x)
         {
             //return 0; Original
