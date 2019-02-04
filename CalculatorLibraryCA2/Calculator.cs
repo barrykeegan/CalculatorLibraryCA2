@@ -14,6 +14,11 @@ namespace CalculatorLibraryCA2
             return n1 + n2; //Version 2
         }
 
+        public static double Cube(double x)
+        {
+            return 0;
+        }
+
         public static double Divide(double n1, double n2)
         {
             return n1 / n2;
