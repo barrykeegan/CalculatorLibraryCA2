@@ -17,8 +17,6 @@ namespace CalculatorLibraryCA2
             InitializeComponent();
         }
 
-        private void CalculatorForm_Load(object sender, EventArgs e)
-        {
 
-        }
     }
+}
