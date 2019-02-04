@@ -27,6 +27,8 @@ namespace CalculatorLibraryCA2.Tests
         {
             Assert.AreEqual(0, Calculator.Cube(0));
             Assert.AreEqual(1, Calculator.Cube(1));
+            Assert.AreEqual(27, Calculator.Cube(3));
+            Assert.AreEqual(-27, Calculator.Cube(-3));
         }
 
         [TestMethod]
