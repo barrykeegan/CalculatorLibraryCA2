@@ -23,6 +23,12 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void CubedTest()
+        {
+            Assert.AreEqual(0, Calculator.Cube(0));
+        }
+
+        [TestMethod]
         public void DivideByZeroGivesInfinityTest()
         {
             Assert.AreEqual(double.PositiveInfinity, Calculator.Divide(1.5, 0));
