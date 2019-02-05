@@ -77,9 +77,10 @@ namespace CalculatorLibraryCA2.Tests
                 //If it does, test should fail
                 Assert.Fail();
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException e)
             {
                 //Catches appropriate exception and test passes
+                StringAssert.Contains(e.Message, "Number cannot be negative");
             }
             catch (Exception)
             {
@@ -93,6 +94,11 @@ namespace CalculatorLibraryCA2.Tests
         public void InvertTest()
         {
             Assert.AreEqual(1, Calculator.Invert(1));
+            Assert.AreEqual(-1, Calculator.Invert(-1));
+            Assert.AreEqual(0.5, Calculator.Invert(2));
+            Assert.AreEqual(-0.5, Calculator.Invert(-2));
+            Assert.AreEqual(0.1, Calculator.Invert(10));
+            Assert.AreEqual(0.190476190476, Math.Round(Calculator.Invert(5.25), 12) );
         }
 
         [TestMethod]

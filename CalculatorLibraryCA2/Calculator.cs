@@ -53,7 +53,7 @@ namespace CalculatorLibraryCA2
             }
             else
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("Number cannot be negative");
             }
         }
 
