@@ -90,6 +90,12 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void InvertTest()
+        {
+            Assert.AreEqual(1, Calculator.Invert(1));
+        }
+
+        [TestMethod]
         public void MultiplyTest()
         {
             Assert.AreEqual(0, Calculator.Multiply(0, 0));
