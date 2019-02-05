@@ -45,6 +45,10 @@ namespace CalculatorLibraryCA2
             if (x > -1)
             {
                 int fact = 1;
+                for(int i = x; i > 0; i--)
+                {
+                    fact *= i;
+                }
                 return fact;
             }
             else
