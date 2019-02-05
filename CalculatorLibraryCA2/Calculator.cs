@@ -59,7 +59,8 @@ namespace CalculatorLibraryCA2
 
         public static double Invert(double x)
         {
-            return 1;
+            //original return 1;
+            return 1 / x;
         }
 
         public static double Multiply(double n1, double n2)
