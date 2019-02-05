@@ -61,11 +61,28 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(-1.5, Calculator.Divide(-3, 2));
             Assert.AreEqual(1.5, Calculator.Divide(-3, -2));
         }
-        
+
         [TestMethod]
         public void FactorialTest()
         {
             Assert.AreEqual(1, Calculator.Factorial(1));
+            try
+            {
+                Calculator.Factorial(-1);
+                //Execution should not make it to next line as exception should be thrown
+                //If it does, test should fail
+                Assert.Fail();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                //Catches appropriate exception and test passes
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail();
+            }
         }
 
         [TestMethod]

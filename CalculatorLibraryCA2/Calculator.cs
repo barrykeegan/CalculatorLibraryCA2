@@ -39,6 +39,20 @@ namespace CalculatorLibraryCA2
             return n1 / n2;
         }
 
+        public static int Factorial(int x)
+        {
+            //return 1; original
+            if (x > -1)
+            {
+                int fact = 1;
+                return fact;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public static double Multiply(double n1, double n2)
         {
             //return 0.0; //Original
