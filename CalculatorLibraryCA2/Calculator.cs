@@ -16,7 +16,16 @@ namespace CalculatorLibraryCA2
 
         public static double BaseToExponent(double x, double y)
         {
-            return double.NaN;
+            /*******************************************
+             * To explain below original version, before
+             * beginning development of BaseToExponent I
+             * believed Math.Pow(0, 0) would result in 
+             * NaN, but it returns 1, which caused an 
+             * error in the test, so that had to be
+             * modified also.
+             *******************************************/
+            //return double.NaN; Original
+            return Math.Pow(x, y);
         }
 
         public static double Cube(double x)

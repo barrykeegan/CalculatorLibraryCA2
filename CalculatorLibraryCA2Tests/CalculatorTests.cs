@@ -25,7 +25,11 @@ namespace CalculatorLibraryCA2.Tests
         [TestMethod]
         public void BaseToExponentTest()
         {
-            Assert.AreEqual(double.NaN, Calculator.BaseToExponent(0, 0));
+            Assert.AreEqual(1, Calculator.BaseToExponent(0, 0));
+            Assert.AreEqual(1, Calculator.BaseToExponent(10, 0));
+            Assert.AreEqual(0.25, Calculator.BaseToExponent(4, -1));
+            Assert.AreEqual(-27, Calculator.BaseToExponent(-3, 3));
+            Assert.AreEqual(10000000000, Calculator.BaseToExponent(10, 10));
         }
 
         [TestMethod]
