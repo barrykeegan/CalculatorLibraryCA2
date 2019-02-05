@@ -66,6 +66,8 @@ namespace CalculatorLibraryCA2.Tests
         public void FactorialTest()
         {
             Assert.AreEqual(1, Calculator.Factorial(1));
+            Assert.AreEqual(2, Calculator.Factorial(2));
+            Assert.AreEqual(6, Calculator.Factorial(3));
             try
             {
                 Calculator.Factorial(-1);
