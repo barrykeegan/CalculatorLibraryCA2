@@ -51,6 +51,7 @@
             this.btnFactorial = new System.Windows.Forms.Button();
             this.btnCube = new System.Windows.Forms.Button();
             this.btnInvert = new System.Windows.Forms.Button();
+            this.btnClearDisplay = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDisplay
@@ -65,7 +66,7 @@
             this.lblDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblDisplay.Size = new System.Drawing.Size(340, 60);
             this.lblDisplay.TabIndex = 0;
-            this.lblDisplay.Text = "12345678";
+            this.lblDisplay.Text = "0";
             this.lblDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnSeven
@@ -78,6 +79,7 @@
             this.btnSeven.TabIndex = 1;
             this.btnSeven.Text = "7";
             this.btnSeven.UseVisualStyleBackColor = true;
+            this.btnSeven.Click += new System.EventHandler(this.btnSeven_Click);
             // 
             // btnEight
             // 
@@ -89,6 +91,7 @@
             this.btnEight.TabIndex = 2;
             this.btnEight.Text = "8";
             this.btnEight.UseVisualStyleBackColor = true;
+            this.btnEight.Click += new System.EventHandler(this.btnEight_Click);
             // 
             // btnFour
             // 
@@ -100,6 +103,7 @@
             this.btnFour.TabIndex = 3;
             this.btnFour.Text = "4";
             this.btnFour.UseVisualStyleBackColor = true;
+            this.btnFour.Click += new System.EventHandler(this.btnFour_Click);
             // 
             // btnFive
             // 
@@ -111,6 +115,7 @@
             this.btnFive.TabIndex = 4;
             this.btnFive.Text = "5";
             this.btnFive.UseVisualStyleBackColor = true;
+            this.btnFive.Click += new System.EventHandler(this.btnFive_Click);
             // 
             // btnNine
             // 
@@ -122,6 +127,7 @@
             this.btnNine.TabIndex = 5;
             this.btnNine.Text = "9";
             this.btnNine.UseVisualStyleBackColor = true;
+            this.btnNine.Click += new System.EventHandler(this.btnNine_Click);
             // 
             // btnSix
             // 
@@ -133,6 +139,7 @@
             this.btnSix.TabIndex = 6;
             this.btnSix.Text = "6";
             this.btnSix.UseVisualStyleBackColor = true;
+            this.btnSix.Click += new System.EventHandler(this.btnSix_Click);
             // 
             // btnOne
             // 
@@ -144,6 +151,7 @@
             this.btnOne.TabIndex = 7;
             this.btnOne.Text = "1";
             this.btnOne.UseVisualStyleBackColor = true;
+            this.btnOne.Click += new System.EventHandler(this.btnOne_Click);
             // 
             // btnTwo
             // 
@@ -155,6 +163,7 @@
             this.btnTwo.TabIndex = 8;
             this.btnTwo.Text = "2";
             this.btnTwo.UseVisualStyleBackColor = true;
+            this.btnTwo.Click += new System.EventHandler(this.btnTwo_Click);
             // 
             // btnThree
             // 
@@ -166,6 +175,7 @@
             this.btnThree.TabIndex = 9;
             this.btnThree.Text = "3";
             this.btnThree.UseVisualStyleBackColor = true;
+            this.btnThree.Click += new System.EventHandler(this.btnThree_Click);
             // 
             // btnPoint
             // 
@@ -177,6 +187,7 @@
             this.btnPoint.TabIndex = 10;
             this.btnPoint.Text = ".";
             this.btnPoint.UseVisualStyleBackColor = true;
+            this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
             // btnZero
             // 
@@ -188,6 +199,7 @@
             this.btnZero.TabIndex = 11;
             this.btnZero.Text = "0";
             this.btnZero.UseVisualStyleBackColor = true;
+            this.btnZero.Click += new System.EventHandler(this.btnZero_Click);
             // 
             // btnPlus
             // 
@@ -243,6 +255,7 @@
             this.btnEquals.TabIndex = 16;
             this.btnEquals.Text = "=";
             this.btnEquals.UseVisualStyleBackColor = true;
+            this.btnEquals.Click += new System.EventHandler(this.btnEquals_Click);
             // 
             // btnSquare
             // 
@@ -287,6 +300,7 @@
             this.btnFactorial.TabIndex = 20;
             this.btnFactorial.Text = "x!";
             this.btnFactorial.UseVisualStyleBackColor = true;
+            this.btnFactorial.Click += new System.EventHandler(this.btnFactorial_Click);
             // 
             // btnCube
             // 
@@ -310,11 +324,23 @@
             this.btnInvert.Text = "1/x";
             this.btnInvert.UseVisualStyleBackColor = true;
             // 
+            // btnClearDisplay
+            // 
+            this.btnClearDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearDisplay.Location = new System.Drawing.Point(248, 274);
+            this.btnClearDisplay.Name = "btnClearDisplay";
+            this.btnClearDisplay.Size = new System.Drawing.Size(98, 31);
+            this.btnClearDisplay.TabIndex = 23;
+            this.btnClearDisplay.Text = "Clear";
+            this.btnClearDisplay.UseVisualStyleBackColor = true;
+            this.btnClearDisplay.Click += new System.EventHandler(this.btnClearDisplay_Click);
+            // 
             // frmCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 273);
+            this.ClientSize = new System.Drawing.Size(350, 321);
+            this.Controls.Add(this.btnClearDisplay);
             this.Controls.Add(this.btnInvert);
             this.Controls.Add(this.btnCube);
             this.Controls.Add(this.btnFactorial);
@@ -371,5 +397,6 @@
         private System.Windows.Forms.Button btnFactorial;
         private System.Windows.Forms.Button btnCube;
         private System.Windows.Forms.Button btnInvert;
+        private System.Windows.Forms.Button btnClearDisplay;
     }
 }

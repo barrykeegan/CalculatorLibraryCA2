@@ -75,7 +75,7 @@ namespace CalculatorLibraryCA2.Tests
                 Calculator.Factorial(-1);
                 //Execution should not make it to next line as exception should be thrown
                 //If it does, test should fail
-                Assert.Fail();
+                Assert.Fail("No exception was thrown");
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -86,7 +86,7 @@ namespace CalculatorLibraryCA2.Tests
             {
                 //Catch base exception in case exception other than expected is thrown
                 //test fails in that case
-                Assert.Fail();
+                Assert.Fail("No exception was thrown");
             }
         }
 
@@ -99,6 +99,7 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(-0.5, Calculator.Invert(-2));
             Assert.AreEqual(0.1, Calculator.Invert(10));
             Assert.AreEqual(0.190476190476, Math.Round(Calculator.Invert(5.25), 12) );
+            Assert.AreEqual(double.PositiveInfinity, Calculator.Invert(0));
         }
 
         [TestMethod]
