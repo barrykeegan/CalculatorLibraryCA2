@@ -89,6 +89,12 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void SquareRootTest()
+        {
+            Assert.AreEqual(1, Calculator.SquareRoot(1);
+        }
+
+        [TestMethod]
         public void SubtractTest()
         {
             Assert.AreEqual(0, Calculator.Subtract(0, 0));
