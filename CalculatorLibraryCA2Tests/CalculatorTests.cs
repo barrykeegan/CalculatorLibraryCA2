@@ -68,6 +68,8 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(1, Calculator.Factorial(1));
             Assert.AreEqual(2, Calculator.Factorial(2));
             Assert.AreEqual(6, Calculator.Factorial(3));
+            Assert.AreEqual(24, Calculator.Factorial(4));
+            Assert.AreEqual(120, Calculator.Factorial(5));
             try
             {
                 Calculator.Factorial(-1);
