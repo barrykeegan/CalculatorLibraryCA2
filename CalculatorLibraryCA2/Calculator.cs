@@ -50,6 +50,12 @@ namespace CalculatorLibraryCA2
             return x * x;
         }
 
+        public static double SquareRoot(double x)
+        {
+            //return 1; original
+            return Math.Sqrt(x);
+        }
+
         public static double Subtract(double n1, double n2)
         {
             //return 0.0; //Original

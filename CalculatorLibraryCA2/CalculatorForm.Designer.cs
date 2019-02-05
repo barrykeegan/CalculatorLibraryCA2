@@ -285,7 +285,7 @@
             this.btnFactorial.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnFactorial.Size = new System.Drawing.Size(43, 42);
             this.btnFactorial.TabIndex = 20;
-            this.btnFactorial.Text = "+";
+            this.btnFactorial.Text = "x!";
             this.btnFactorial.UseVisualStyleBackColor = true;
             // 
             // btnCube

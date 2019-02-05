@@ -61,6 +61,12 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(-1.5, Calculator.Divide(-3, 2));
             Assert.AreEqual(1.5, Calculator.Divide(-3, -2));
         }
+        
+        [TestMethod]
+        public void FactorialTest()
+        {
+            Assert.AreEqual(1, Calculator.Factorial(1));
+        }
 
         [TestMethod]
         public void MultiplyTest()
@@ -91,7 +97,12 @@ namespace CalculatorLibraryCA2.Tests
         [TestMethod]
         public void SquareRootTest()
         {
-            Assert.AreEqual(1, Calculator.SquareRoot(1);
+            Assert.AreEqual(1, Calculator.SquareRoot(1));
+            Assert.AreEqual(2, Calculator.SquareRoot(4));
+            Assert.AreEqual(double.NaN, Calculator.SquareRoot(-4));
+            Assert.AreEqual(1.73205080756888, Math.Round(Calculator.SquareRoot(3), 14));
+            Assert.AreEqual(3, Calculator.SquareRoot(9));
+            Assert.AreEqual(4, Calculator.SquareRoot(16));
         }
 
         [TestMethod]
