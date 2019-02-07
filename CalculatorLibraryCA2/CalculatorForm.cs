@@ -14,8 +14,13 @@ namespace CalculatorLibraryCA2
     {
         //string used to store the operator chosen by user, will be used to control switch
         string chosenOperator = null;
+        //used to specify whether chosen operation will be applied to one value only
         bool singletonOperator = false;
+        //used to flag that a calculation has taken place and what appears in the display
+        //is the result, certain buttons pressed when this flag is set will clear the display
+        //the value in the display postOperation can be used as a value for subsequent operations
         bool postOperation = false;
+        //used to store the values to work with
         double firstOperand = 0.0;
         double secondOperand = 0.0;
 
@@ -25,7 +30,15 @@ namespace CalculatorLibraryCA2
             InitializeComponent();
         }
 
-        private void ResetDefaults()
+        private void ResetAllDefaults()
+        {
+
+            postOperation = false;
+            lblDisplay.Text = "";
+            ResetMainDefaults();
+        }
+
+        private void ResetMainDefaults()
         {
             chosenOperator = null;
             singletonOperator = false;
@@ -36,16 +49,17 @@ namespace CalculatorLibraryCA2
         private void ProcessInvert()
         {
             double result = Calculator.Invert(firstOperand);
+            postOperation = true;
             if (result == double.PositiveInfinity)
             {
                 MessageBox.Show("Division by 0 results in infinity!");
-                lblDisplay.Text = "0";
+                ResetAllDefaults();
             }
             else
             {
                 lblDisplay.Text = result.ToString();
-            }
-            ResetDefaults();
+                ResetMainDefaults();
+            }            
         }
 
         private void ProcessFactorial()
@@ -54,7 +68,8 @@ namespace CalculatorLibraryCA2
             {
                 if (firstOperand < 0)
                 {
-                    MessageBox.Show("The Factorial operation can only be run on positive values");
+                    MessageBox.Show("The Factorial operation can only be run on non-negative values");
+                    chosenOperator = null;
                 }
                 else
                 {
@@ -65,31 +80,35 @@ namespace CalculatorLibraryCA2
             {
                 MessageBox.Show("The Factorial operation requires an integer value");
             }
-            ResetDefaults();
+            ResetMainDefaults();
         }
         
         private void ProcessSquare()
         {
             lblDisplay.Text = Calculator.Square(firstOperand).ToString();
-            ResetDefaults();
+            ResetMainDefaults();
         }
+
         private void NumberButtonClick(int number)
         {
-            string currLabelText = lblDisplay.Text;
-            if(number == 0 )
+            if (postOperation)
             {
-                if(currLabelText != "0" && currLabelText.Length < 8)
+                ResetAllDefaults();
+            }
+            else
+            {
+                string currLabelText = lblDisplay.Text;
+                if (number == 0)
+                {
+                    if (currLabelText != "0" && currLabelText.Length < 8)
+                    {
+                        lblDisplay.Text = currLabelText + number.ToString();
+                    }
+                }
+                else if (currLabelText.Length < 8)
                 {
                     lblDisplay.Text = currLabelText + number.ToString();
                 }
-            }
-            if ( currLabelText == "0")
-            {
-                lblDisplay.Text = number.ToString();
-            }
-            else if (currLabelText.Length < 8)
-            {
-                lblDisplay.Text = currLabelText + number.ToString();
             }
         }
 
@@ -161,31 +180,37 @@ namespace CalculatorLibraryCA2
 
         private void btnEquals_Click(object sender, EventArgs e)
         {
-            string currLabelText = lblDisplay.Text;
-            if (chosenOperator !=null)
+            if (lblDisplay.Text.Length != 0)
             {
-                if (singletonOperator)
+                if (chosenOperator != null)
                 {
-                    firstOperand = double.Parse(lblDisplay.Text);
-                    switch (chosenOperator)
+                    if (singletonOperator)
                     {
-                        case "sqrt":
-                            lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
-                            break;
-                        case "fact":
-                            ProcessFactorial();
-                            break;
-                        case "square":
-                            ProcessSquare();
-                            break;
-                        case "cube":
-                            lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
-                            break;
-                        case "invert":
-                            ProcessInvert();
-                            break;
-                        default:
-                            break;
+                        firstOperand = double.Parse(lblDisplay.Text);
+                        switch (chosenOperator)
+                        {
+                            case "sqrt":
+                                lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
+                                break;
+                            case "fact":
+                                ProcessFactorial();
+                                break;
+                            case "square":
+                                ProcessSquare();
+                                break;
+                            case "cube":
+                                lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
+                                break;
+                            case "invert":
+                                ProcessInvert();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        throw new NotImplementedException("Haven't implement non-singleton operators yet, execution shouldn't reach here until I do.");
                     }
                 }
             }
@@ -199,7 +224,7 @@ namespace CalculatorLibraryCA2
 
         private void btnFactorial_Click(object sender, EventArgs e)
         {
-            if(lblDisplay.Text == "0")
+            if(lblDisplay.Text == "")
             {
                 singletonOperator = true;
                 chosenOperator = "fact";
