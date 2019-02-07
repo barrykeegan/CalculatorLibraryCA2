@@ -163,17 +163,16 @@ namespace CalculatorLibraryCA2
         }
 
         private void btnPoint_Click(object sender, EventArgs e)
-        {
-            string currLabelText = lblDisplay.Text;
-            if (!currLabelText.Contains("."))
+        { 
+            if (!lblDisplay.Text.Contains("."))
             {
-                if(currLabelText.Length==0)
+                if(lblDisplay.Text.Length==0)
                 {
                     lblDisplay.Text = "0.";
                 }
-                else if(currLabelText.Length < 7)
+                else if(lblDisplay.Text.Length < 7)
                 {
-                    lblDisplay.Text = currLabelText + ".";
+                    lblDisplay.Text +=  ".";
                 }
             }
         }
@@ -218,8 +217,7 @@ namespace CalculatorLibraryCA2
 
         private void btnClearDisplay_Click(object sender, EventArgs e)
         {
-            ResetDefaults();
-            lblDisplay.Text = "";
+            ResetAllDefaults();
         }
 
         private void btnFactorial_Click(object sender, EventArgs e)
