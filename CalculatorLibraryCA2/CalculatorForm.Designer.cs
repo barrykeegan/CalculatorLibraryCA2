@@ -278,6 +278,7 @@
             this.btnSquareRoot.TabIndex = 18;
             this.btnSquareRoot.Text = "√x";
             this.btnSquareRoot.UseVisualStyleBackColor = true;
+            this.btnSquareRoot.Click += new System.EventHandler(this.btnSquareRoot_Click);
             // 
             // btnPow
             // 

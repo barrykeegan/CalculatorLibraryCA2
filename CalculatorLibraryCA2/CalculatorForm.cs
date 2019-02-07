@@ -46,6 +46,11 @@ namespace CalculatorLibraryCA2
             secondOperand = 0.0;
         }
 
+        private void SetFirstOperand()
+        {
+            firstOperand = double.Parse(lblDisplay.Text);
+        }
+
         private void ProcessInvert()
         {
             double result = Calculator.Invert(firstOperand);
@@ -89,25 +94,140 @@ namespace CalculatorLibraryCA2
             ResetMainDefaults();
         }
 
+        private void ProcessSquareRoot()
+        {
+            lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
+        }
+
+        private void ProcessCube()
+        {
+            lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
+        }
+
+        private void btnEquals_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text.Length != 0)
+            {
+                if (chosenOperator != null)
+                {
+                    if (singletonOperator)
+                    {
+                        SetFirstOperand();
+                        switch (chosenOperator)
+                        {
+                            case "sqrt":
+                                ProcessSquareRoot();
+                                //lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
+                                break;
+                            case "fact":
+                                ProcessFactorial();
+                                break;
+                            case "square":
+                                ProcessSquare();
+                                break;
+                            case "cube":
+                                ProcessCube();
+                                //lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
+                                break;
+                            case "invert":
+                                ProcessInvert();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        throw new NotImplementedException("Haven't implement non-singleton operators yet, execution shouldn't reach here until I do.");
+                    }
+                }
+            }
+        }
+
+        private void btnFactorial_Click(object sender, EventArgs e)
+        {
+            if(lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = "fact";
+            }
+            else
+            {
+                SetFirstOperand();
+                ProcessFactorial();
+            }
+        }
+
+        private void btnInvert_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = "invert";
+            }
+            else
+            {
+                SetFirstOperand();
+                ProcessInvert();
+            }
+        }
+
+        private void btnSquare_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = "square";
+            }
+            else
+            {
+                SetFirstOperand();
+                ProcessSquare();
+            }
+        }
+
+        private void btnSquareRoot_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = "sqrt";
+            }
+            else
+            {
+                SetFirstOperand();
+                ProcessSquareRoot();
+            }
+        }
+
+        private void btnClearDisplay_Click(object sender, EventArgs e)
+        {
+            ResetAllDefaults();
+        }
+
         private void NumberButtonClick(int number)
         {
             if (postOperation)
             {
                 ResetAllDefaults();
+                lblDisplay.Text = number.ToString();
             }
             else
             {
-                string currLabelText = lblDisplay.Text;
-                if (number == 0)
+                if (lblDisplay.Text == "")
                 {
-                    if (currLabelText != "0" && currLabelText.Length < 8)
+                    lblDisplay.Text = number.ToString();
+                }
+                else if (lblDisplay.Text == "0")
+                {
+                    if (number != 0)
                     {
-                        lblDisplay.Text = currLabelText + number.ToString();
+                        lblDisplay.Text = number.ToString();
                     }
                 }
-                else if (currLabelText.Length < 8)
+                else if (lblDisplay.Text.Length < 8)
                 {
-                    lblDisplay.Text = currLabelText + number.ToString();
+                    lblDisplay.Text += number.ToString();
                 }
             }
         }
@@ -163,102 +283,17 @@ namespace CalculatorLibraryCA2
         }
 
         private void btnPoint_Click(object sender, EventArgs e)
-        { 
+        {
             if (!lblDisplay.Text.Contains("."))
             {
-                if(lblDisplay.Text.Length==0)
+                if (lblDisplay.Text.Length == 0)
                 {
                     lblDisplay.Text = "0.";
                 }
-                else if(lblDisplay.Text.Length < 7)
+                else if (lblDisplay.Text.Length < 7)
                 {
-                    lblDisplay.Text +=  ".";
+                    lblDisplay.Text += ".";
                 }
-            }
-        }
-
-        private void btnEquals_Click(object sender, EventArgs e)
-        {
-            if (lblDisplay.Text.Length != 0)
-            {
-                if (chosenOperator != null)
-                {
-                    if (singletonOperator)
-                    {
-                        firstOperand = double.Parse(lblDisplay.Text);
-                        switch (chosenOperator)
-                        {
-                            case "sqrt":
-                                lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
-                                break;
-                            case "fact":
-                                ProcessFactorial();
-                                break;
-                            case "square":
-                                ProcessSquare();
-                                break;
-                            case "cube":
-                                lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
-                                break;
-                            case "invert":
-                                ProcessInvert();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        throw new NotImplementedException("Haven't implement non-singleton operators yet, execution shouldn't reach here until I do.");
-                    }
-                }
-            }
-        }
-
-        private void btnClearDisplay_Click(object sender, EventArgs e)
-        {
-            ResetAllDefaults();
-        }
-
-        private void btnFactorial_Click(object sender, EventArgs e)
-        {
-            if(lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = "fact";
-            }
-            else
-            {
-                firstOperand = double.Parse(lblDisplay.Text);
-                ProcessFactorial();
-            }
-        }
-
-        private void btnInvert_Click(object sender, EventArgs e)
-        {
-            if (lblDisplay.Text == "0")
-            {
-                singletonOperator = true;
-                chosenOperator = "invert";
-            }
-            else
-            {
-                firstOperand = double.Parse(lblDisplay.Text);
-                ProcessInvert();
-            }
-        }
-
-        private void btnSquare_Click(object sender, EventArgs e)
-        {
-            if (lblDisplay.Text == "0")
-            {
-                singletonOperator = true;
-                chosenOperator = "square";
-            }
-            else
-            {
-                firstOperand = double.Parse(lblDisplay.Text);
-                ProcessSquare();
             }
         }
     }
