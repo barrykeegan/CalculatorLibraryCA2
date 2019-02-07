@@ -32,7 +32,6 @@ namespace CalculatorLibraryCA2
 
         private void ResetAllDefaults()
         {
-
             postOperation = false;
             lblDisplay.Text = "";
             ResetMainDefaults();
@@ -141,6 +140,20 @@ namespace CalculatorLibraryCA2
                         throw new NotImplementedException("Haven't implement non-singleton operators yet, execution shouldn't reach here until I do.");
                     }
                 }
+            }
+        }
+
+        private void btnCube_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = "cube";
+            }
+            else
+            {
+                SetFirstOperand();
+                ProcessCube();
             }
         }
 

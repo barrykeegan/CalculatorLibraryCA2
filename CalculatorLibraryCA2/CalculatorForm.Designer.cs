@@ -313,6 +313,7 @@
             this.btnCube.TabIndex = 21;
             this.btnCube.Text = "x³";
             this.btnCube.UseVisualStyleBackColor = true;
+            this.btnCube.Click += new System.EventHandler(this.btnCube_Click);
             // 
             // btnInvert
             // 
