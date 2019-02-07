@@ -12,10 +12,13 @@ namespace CalculatorLibraryCA2
 {
     public partial class frmCalculator : Form
     {
+        //string used to store the operator chosen by user, will be used to control switch
         string chosenOperator = null;
         bool singletonOperator = false;
+        bool postOperation = false;
         double firstOperand = 0.0;
         double secondOperand = 0.0;
+
 
         public frmCalculator()
         {
@@ -30,6 +33,46 @@ namespace CalculatorLibraryCA2
             secondOperand = 0.0;
         }
 
+        private void ProcessInvert()
+        {
+            double result = Calculator.Invert(firstOperand);
+            if (result == double.PositiveInfinity)
+            {
+                MessageBox.Show("Division by 0 results in infinity!");
+                lblDisplay.Text = "0";
+            }
+            else
+            {
+                lblDisplay.Text = result.ToString();
+            }
+            ResetDefaults();
+        }
+
+        private void ProcessFactorial()
+        {
+            if (firstOperand % 1 == 0)
+            {
+                if (firstOperand < 0)
+                {
+                    MessageBox.Show("The Factorial operation can only be run on positive values");
+                }
+                else
+                {
+                    lblDisplay.Text = Calculator.Factorial((int)firstOperand).ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("The Factorial operation requires an integer value");
+            }
+            ResetDefaults();
+        }
+        
+        private void ProcessSquare()
+        {
+            lblDisplay.Text = Calculator.Square(firstOperand).ToString();
+            ResetDefaults();
+        }
         private void NumberButtonClick(int number)
         {
             string currLabelText = lblDisplay.Text;
@@ -105,7 +148,11 @@ namespace CalculatorLibraryCA2
             string currLabelText = lblDisplay.Text;
             if (!currLabelText.Contains("."))
             {
-                if(currLabelText.Length < 7)
+                if(currLabelText.Length==0)
+                {
+                    lblDisplay.Text = "0.";
+                }
+                else if(currLabelText.Length < 7)
                 {
                     lblDisplay.Text = currLabelText + ".";
                 }
@@ -126,31 +173,16 @@ namespace CalculatorLibraryCA2
                             lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
                             break;
                         case "fact":
-                            if (firstOperand % 1 == 0)
-                            {
-                                if (firstOperand < 0)
-                                {
-                                    MessageBox.Show("The Factorial operation can only be run on positive values");
-                                }
-                                else
-                                {
-                                    lblDisplay.Text = Calculator.Factorial((int)firstOperand).ToString();
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("The Factorial operation requires an integer value");
-                            }
-                            ResetDefaults();
+                            ProcessFactorial();
                             break;
                         case "square":
-                            lblDisplay.Text = Calculator.Square(firstOperand).ToString();
+                            ProcessSquare();
                             break;
                         case "cube":
                             lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
                             break;
                         case "invert":
-                            lblDisplay.Text = Calculator.Invert(firstOperand).ToString();
+                            ProcessInvert();
                             break;
                         default:
                             break;
@@ -162,7 +194,7 @@ namespace CalculatorLibraryCA2
         private void btnClearDisplay_Click(object sender, EventArgs e)
         {
             ResetDefaults();
-            lblDisplay.Text = "0";
+            lblDisplay.Text = "";
         }
 
         private void btnFactorial_Click(object sender, EventArgs e)
@@ -175,22 +207,35 @@ namespace CalculatorLibraryCA2
             else
             {
                 firstOperand = double.Parse(lblDisplay.Text);
-                if (firstOperand % 1 == 0)
-                {
-                    if (firstOperand < 0)
-                    {
-                        MessageBox.Show("The Factorial operation can only be run on positive values");
-                    }
-                    else
-                    {
-                        lblDisplay.Text = Calculator.Factorial((int)firstOperand).ToString();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("The Factorial operation requires an integer value");
-                }
-                ResetDefaults();
+                ProcessFactorial();
+            }
+        }
+
+        private void btnInvert_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "0")
+            {
+                singletonOperator = true;
+                chosenOperator = "invert";
+            }
+            else
+            {
+                firstOperand = double.Parse(lblDisplay.Text);
+                ProcessInvert();
+            }
+        }
+
+        private void btnSquare_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text == "0")
+            {
+                singletonOperator = true;
+                chosenOperator = "square";
+            }
+            else
+            {
+                firstOperand = double.Parse(lblDisplay.Text);
+                ProcessSquare();
             }
         }
     }

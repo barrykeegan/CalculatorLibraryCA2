@@ -66,7 +66,6 @@
             this.lblDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblDisplay.Size = new System.Drawing.Size(340, 60);
             this.lblDisplay.TabIndex = 0;
-            this.lblDisplay.Text = "0";
             this.lblDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnSeven
@@ -267,6 +266,7 @@
             this.btnSquare.TabIndex = 17;
             this.btnSquare.Text = "x²";
             this.btnSquare.UseVisualStyleBackColor = true;
+            this.btnSquare.Click += new System.EventHandler(this.btnSquare_Click);
             // 
             // btnSquareRoot
             // 
@@ -323,13 +323,14 @@
             this.btnInvert.TabIndex = 22;
             this.btnInvert.Text = "1/x";
             this.btnInvert.UseVisualStyleBackColor = true;
+            this.btnInvert.Click += new System.EventHandler(this.btnInvert_Click);
             // 
             // btnClearDisplay
             // 
             this.btnClearDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearDisplay.Location = new System.Drawing.Point(248, 274);
+            this.btnClearDisplay.Location = new System.Drawing.Point(249, 274);
             this.btnClearDisplay.Name = "btnClearDisplay";
-            this.btnClearDisplay.Size = new System.Drawing.Size(98, 31);
+            this.btnClearDisplay.Size = new System.Drawing.Size(98, 42);
             this.btnClearDisplay.TabIndex = 23;
             this.btnClearDisplay.Text = "Clear";
             this.btnClearDisplay.UseVisualStyleBackColor = true;
