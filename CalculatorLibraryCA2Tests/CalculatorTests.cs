@@ -137,6 +137,7 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(1.73205080756888, Math.Round(Calculator.SquareRoot(3), 14));
             Assert.AreEqual(3, Calculator.SquareRoot(9));
             Assert.AreEqual(4, Calculator.SquareRoot(16));
+            Assert.AreEqual(0, Calculator.SquareRoot(0));
         }
 
         [TestMethod]

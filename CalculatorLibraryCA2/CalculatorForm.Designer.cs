@@ -52,6 +52,7 @@
             this.btnCube = new System.Windows.Forms.Button();
             this.btnInvert = new System.Windows.Forms.Button();
             this.btnClearDisplay = new System.Windows.Forms.Button();
+            this.btnPlusMinus = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDisplay
@@ -338,11 +339,23 @@
             this.btnClearDisplay.UseVisualStyleBackColor = true;
             this.btnClearDisplay.Click += new System.EventHandler(this.btnClearDisplay_Click);
             // 
+            // btnPlusMinus
+            // 
+            this.btnPlusMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlusMinus.Location = new System.Drawing.Point(190, 274);
+            this.btnPlusMinus.Name = "btnPlusMinus";
+            this.btnPlusMinus.Size = new System.Drawing.Size(43, 42);
+            this.btnPlusMinus.TabIndex = 24;
+            this.btnPlusMinus.Text = "+/-";
+            this.btnPlusMinus.UseVisualStyleBackColor = true;
+            this.btnPlusMinus.Click += new System.EventHandler(this.btnPlusMinus_Click);
+            // 
             // frmCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 321);
+            this.Controls.Add(this.btnPlusMinus);
             this.Controls.Add(this.btnClearDisplay);
             this.Controls.Add(this.btnInvert);
             this.Controls.Add(this.btnCube);
@@ -401,5 +414,6 @@
         private System.Windows.Forms.Button btnCube;
         private System.Windows.Forms.Button btnInvert;
         private System.Windows.Forms.Button btnClearDisplay;
+        private System.Windows.Forms.Button btnPlusMinus;
     }
 }

@@ -78,6 +78,8 @@ namespace CalculatorLibraryCA2
                 else
                 {
                     lblDisplay.Text = Calculator.Factorial((int)firstOperand).ToString();
+                    postOperation = true;
+                    ResetMainDefaults();
                 }
             }
             else
@@ -90,17 +92,22 @@ namespace CalculatorLibraryCA2
         private void ProcessSquare()
         {
             lblDisplay.Text = Calculator.Square(firstOperand).ToString();
+            postOperation = true;
             ResetMainDefaults();
         }
 
         private void ProcessSquareRoot()
         {
             lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
+            postOperation = true;
+            ResetMainDefaults();
         }
 
         private void ProcessCube()
         {
             lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
+            postOperation = true;
+            ResetMainDefaults();
         }
 
         private void btnEquals_Click(object sender, EventArgs e)
@@ -210,6 +217,14 @@ namespace CalculatorLibraryCA2
             {
                 SetFirstOperand();
                 ProcessSquareRoot();
+            }
+        }
+
+        private void btnPlusMinus_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                lblDisplay.Text = (double.Parse(lblDisplay.Text) * -1.0).ToString();
             }
         }
 
