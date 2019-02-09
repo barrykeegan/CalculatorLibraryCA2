@@ -117,6 +117,16 @@ namespace CalculatorLibraryCA2.Tests
         }
 
         [TestMethod]
+        public void PlusMinusTest()
+        {
+            Assert.AreEqual(0, Calculator.PlusMinus(0));
+            Assert.AreEqual(1, Calculator.PlusMinus(-1));
+            Assert.AreEqual(-1, Calculator.PlusMinus(1));
+            Assert.AreEqual(1.5, Calculator.PlusMinus(-1.5));
+            Assert.AreEqual(-1.5, Calculator.PlusMinus(1.5));
+        }
+
+        [TestMethod]
         public void SquaredTest()
         {
             Assert.AreEqual(0, Calculator.Square(0));
@@ -149,11 +159,6 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(1, Calculator.Subtract(0, -1));
             Assert.AreEqual(0, Calculator.Subtract(2, 2));
             Assert.AreEqual(-1, Calculator.Subtract(2, 3));
-        }
-
-        public void PlusMinusTest()
-        {
-            Assert.AreEqual(0, Calculator.PlusMinus(0));
         }
     }
 }
