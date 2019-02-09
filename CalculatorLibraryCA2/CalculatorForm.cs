@@ -224,7 +224,7 @@ namespace CalculatorLibraryCA2
         {
             if (lblDisplay.Text != "")
             {
-                lblDisplay.Text = (double.Parse(lblDisplay.Text) * -1.0).ToString();
+                lblDisplay.Text = Calculator.PlusMinus(double.Parse(lblDisplay.Text)).ToString();
             }
         }
 
