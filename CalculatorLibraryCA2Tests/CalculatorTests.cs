@@ -98,7 +98,7 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(0.5, Calculator.Invert(2));
             Assert.AreEqual(-0.5, Calculator.Invert(-2));
             Assert.AreEqual(0.1, Calculator.Invert(10));
-            Assert.AreEqual(0.190476190476, Math.Round(Calculator.Invert(5.25), 12) );
+            Assert.AreEqual(0.190476190476, Math.Round(Calculator.Invert(5.25), 12));
             Assert.AreEqual(double.PositiveInfinity, Calculator.Invert(0));
         }
 
@@ -149,6 +149,11 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(1, Calculator.Subtract(0, -1));
             Assert.AreEqual(0, Calculator.Subtract(2, 2));
             Assert.AreEqual(-1, Calculator.Subtract(2, 3));
-        }        
+        }
+
+        public void PlusMinusTest()
+        {
+            Assert.AreEqual(0, Calculator.PlusMinus(0));
+        }
     }
 }
