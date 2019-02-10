@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace CalculatorLibraryCA2
 {
+    delegate double SingleOperand(double x);
+    delegate double TwoOperands(double x, double y);
+
     public partial class frmCalculator : Form
     {
         //string used to store the operator chosen by user, will be used to control switch
@@ -58,6 +61,15 @@ namespace CalculatorLibraryCA2
 
         private void DisplayResult(double result)
         {
+            //When in this function, the maindefaults can be reset as a new calculation
+            //can now take place, either using the result being displayed or completely
+            //new numbers at the user's choice, also if result being display then it's
+            //postOperation is set to true
+            ResetMainDefaults();
+            postOperation = true;
+
+            //strResult variable used to test value to be displayed so it can be formatted
+            //appropriately if needs be
             string strResult = result.ToString();
             //display space is limited, make sure result can be displayed
             if (strResult.Contains("E") || strResult.Length > 11)
@@ -83,21 +95,26 @@ namespace CalculatorLibraryCA2
                 lblDisplay.Text = result.ToString();
             }
         }
-
+        
+        //singleton operations, in one place, to be delegatised
         private void ProcessInvert()
         {
-            double result = Calculator.Invert(firstOperand);
-            postOperation = true;
-            if (result == double.PositiveInfinity)
-            {
-                MessageBox.Show("Division by 0 results in infinity!");
-                ResetAllDefaults();
-            }
-            else
-            {
-                DisplayResult(result);
-                ResetMainDefaults();
-            }            
+            DisplayResult(Calculator.Invert(firstOperand));          
+        }
+
+        private void ProcessSquare()
+        {
+            DisplayResult(Calculator.Square(firstOperand));
+        }
+
+        private void ProcessSquareRoot()
+        {
+            DisplayResult(Calculator.SquareRoot(firstOperand));
+        }
+
+        private void ProcessCube()
+        {
+            DisplayResult(Calculator.Cube(firstOperand));
         }
 
         private void ProcessFactorial()
@@ -120,70 +137,36 @@ namespace CalculatorLibraryCA2
             }
             ResetMainDefaults();
         }
-        
-        private void ProcessSquare()
-        {
-            DisplayResult(Calculator.Square(firstOperand));
-            postOperation = true;
-            ResetMainDefaults();
-        }
 
-        private void ProcessSquareRoot()
+        //two operand methods in one place, to be delegatised
+        private void ProcessTwoOperandOperation(TwoOperands operation)
         {
-            double result = Calculator.SquareRoot(firstOperand);
-            if (result == double.NaN)
-            {
-                MessageBox.Show("Result was Not a Number. Were you trying to get the Square Root of a negative number?");
-                ResetAllDefaults();
-            }
-            else
-            {
-                DisplayResult(result);
-                postOperation = true;
-                ResetMainDefaults();
-            }            
-        }
-
-        private void ProcessCube()
-        {
-            DisplayResult(Calculator.Cube(firstOperand));
-            postOperation = true;
-            ResetMainDefaults();
+            DisplayResult(operation(firstOperand, secondOperand));
         }
 
         private void ProcessAdd()
         {
             DisplayResult(Calculator.Add(firstOperand, secondOperand));
-            postOperation = true;
-            ResetMainDefaults();
         }
 
         private void ProcessSub()
         {
             DisplayResult(Calculator.Subtract(firstOperand, secondOperand));
-            postOperation = true;
-            ResetMainDefaults();
         }
 
         private void ProcessMul()
         {
             DisplayResult(Calculator.Multiply(firstOperand, secondOperand));
-            postOperation = true;
-            ResetMainDefaults();
         }
 
         private void ProcessDiv()
         {
             DisplayResult(Calculator.Divide(firstOperand, secondOperand));
-            postOperation = true;
-            ResetMainDefaults();
         }
 
         private void ProcessExp()
         {
             DisplayResult(Calculator.BaseToExponent(firstOperand, secondOperand));
-            postOperation = true;
-            ResetMainDefaults();
         }
 
         private void ExecuteEqualsAction()
@@ -218,19 +201,19 @@ namespace CalculatorLibraryCA2
                 switch (chosenOperator)
                 {
                     case "add":
-                        ProcessAdd();
+                        ProcessTwoOperandOperation(Calculator.Add);
                         break;
                     case "sub":
-                        ProcessSub();
+                        ProcessTwoOperandOperation(Calculator.Subtract);
                         break;
                     case "mul":
-                        ProcessMul();
+                        ProcessTwoOperandOperation(Calculator.Multiply);
                         break;
                     case "div":
-                        ProcessDiv();
+                        ProcessTwoOperandOperation(Calculator.Divide);
                         break;
                     case "exp":
-                        ProcessExp();
+                        ProcessTwoOperandOperation(Calculator.BaseToExponent);
                         break;
                     default:
                         break;
@@ -324,10 +307,26 @@ namespace CalculatorLibraryCA2
                 postOperation = true;
             }
         }
+        private void ProcessTwoOperandButtonClick(string operation)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+
+                singletonOperator = false;
+                chosenOperator = operation;
+                SetFirstOperand();
+                postOperation = true;
+            }
+        }
 
         private void btnPlus_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text != "")
+            ProcessTwoOperandButtonClick("add");
+            /*if (lblDisplay.Text != "")
             {
                 if( !singletonOperator && chosenOperator != null)
                 {
@@ -337,7 +336,7 @@ namespace CalculatorLibraryCA2
                 chosenOperator = "add";
                 SetFirstOperand();
                 postOperation = true;
-            }
+            }*/
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
