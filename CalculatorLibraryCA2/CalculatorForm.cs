@@ -59,9 +59,24 @@ namespace CalculatorLibraryCA2
         private void DisplayResult(double result)
         {
             string strResult = result.ToString();
+            //display space is limited, make sure result can be displayed
             if (strResult.Contains("E") || strResult.Length > 11)
             {
-                lblDisplay.Text = result.ToString("0.#####E+0", CultureInfo.InvariantCulture);
+                lblDisplay.Text = result.ToString("0.######E+0", CultureInfo.InvariantCulture);
+            }
+            //below two ifs deal with special double values of infinity and NaN being the outcome
+            //of calculation. if either received use messagebox to display result and Reset All Defaults
+            //as if the calculator has just been started up again as none of these values can be used
+            //in subsequent calculations.
+            else if (result == double.PositiveInfinity || result == double.NegativeInfinity)
+            {
+                MessageBox.Show("Your calculation resulted in infinity");
+                ResetAllDefaults();
+            }
+            else if (result == double.NaN)
+            {
+                MessageBox.Show("Your calculation resulted as Not a Number");
+                ResetAllDefaults();
             }
             else
             {
