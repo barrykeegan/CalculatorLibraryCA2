@@ -137,25 +137,25 @@ namespace CalculatorLibraryCA2
         private void btnCube_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("cube",  Calculator.Cube);
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }        
 
         private void btnInvert_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("invert", Calculator.Invert);
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }
 
         private void btnSquare_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("square", Calculator.Square);
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }
 
         private void btnSquareRoot_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("sqrt", Calculator.SquareRoot);
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }
 
         //Factorial is a special case in so far as it has so many restrictions as to valid inputs:
@@ -205,7 +205,7 @@ namespace CalculatorLibraryCA2
         private void btnFactorial_Click(object sender, EventArgs e)
         {
             ProcessFactorial();
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }
 
         //the plusminus operation is so simple that it can be processed on its own
@@ -216,7 +216,7 @@ namespace CalculatorLibraryCA2
                 DisplayResult(Calculator.PlusMinus(double.Parse(lblDisplay.Text)));
                 postOperation = true;
             }
-            btnFocusStealer.Focus();
+            btnEquals.Focus();
         }
 
         //two operand methods have been delegatised
