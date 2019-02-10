@@ -44,18 +44,25 @@ namespace CalculatorLibraryCA2
         public static double Factorial(double x)
         {
             //return 1; original
-            if (x > -1)
+            if (x % 1 == 0)
             {
-                double fact = 1;
-                for(double i = x; i > 0; i--)
+                if (x > -1)
                 {
-                    fact *= i;
+                    double fact = 1;
+                    for (double i = x; i > 0; i--)
+                    {
+                        fact *= i;
+                    }
+                    return fact;
                 }
-                return fact;
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Number cannot be negative.");
+                }
             }
             else
             {
-                throw new ArgumentOutOfRangeException("Number cannot be negative");
+                throw new ArgumentException("Number must be an integer value.");
             }
         }
 

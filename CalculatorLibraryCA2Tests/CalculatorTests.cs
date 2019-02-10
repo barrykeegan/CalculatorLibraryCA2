@@ -70,6 +70,26 @@ namespace CalculatorLibraryCA2.Tests
             Assert.AreEqual(6, Calculator.Factorial(3));
             Assert.AreEqual(24, Calculator.Factorial(4));
             Assert.AreEqual(120, Calculator.Factorial(5));
+
+            try
+            {
+                Calculator.Factorial(3.6);
+                //Execution should not make it to next line as exception should be thrown
+                //If it does, test should fail
+                Assert.Fail("No exception was thrown");
+            }
+            catch (ArgumentException e)
+            {
+                //Catches appropriate exception and test passes
+                StringAssert.Contains(e.Message, "Number must be an integer value.");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+
             try
             {
                 Calculator.Factorial(-1);
@@ -80,13 +100,13 @@ namespace CalculatorLibraryCA2.Tests
             catch (ArgumentOutOfRangeException e)
             {
                 //Catches appropriate exception and test passes
-                StringAssert.Contains(e.Message, "Number cannot be negative");
+                StringAssert.Contains(e.Message, "Number cannot be negative.");
             }
             catch (Exception)
             {
                 //Catch base exception in case exception other than expected is thrown
                 //test fails in that case
-                Assert.Fail("Exception was thrown");
+                Assert.Fail("Unexpected exception was thrown");
             }
         }
 
