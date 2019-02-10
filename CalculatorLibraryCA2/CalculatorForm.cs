@@ -20,10 +20,12 @@ namespace CalculatorLibraryCA2
         string chosenOperator = null;
         //used to specify whether chosen operation will be applied to one value only
         bool singletonOperator = false;
-        //used to flag that a calculation has taken place and what appears in the display
-        //is the result, certain buttons pressed when this flag is set will clear the display
+        //used to flag that an calculation has taken place or a command button was pressed.
+        //On starting up calculator, it behaves as if an operation has occurred (turning on is an operation)
+        //so that number entry can be processed correctly.
+        //when number buttons pressed when this flag is set it will clear the display and set it to false.
         //the value in the display postOperation can be used as a value for subsequent operations
-        bool postOperation = false;
+        bool postOperation = true;
         //used to store the values to work with
         double firstOperand = 0.0;
         double secondOperand = 0.0;
@@ -36,7 +38,7 @@ namespace CalculatorLibraryCA2
 
         private void ResetAllDefaults()
         {
-            postOperation = false;
+            postOperation = true;
             lblDisplay.Text = "";
             ResetMainDefaults();
         }
@@ -128,7 +130,6 @@ namespace CalculatorLibraryCA2
                 else
                 {
                     DisplayResult(Calculator.Factorial(firstOperand));
-                    postOperation = true;
                 }
             }
             else
@@ -299,6 +300,7 @@ namespace CalculatorLibraryCA2
             }
         }
 
+        //the plusminus operation is so simple that it can be processed on its own
         private void btnPlusMinus_Click(object sender, EventArgs e)
         {
             if (lblDisplay.Text != "")
@@ -307,6 +309,9 @@ namespace CalculatorLibraryCA2
                 postOperation = true;
             }
         }
+
+        //logic for each TwoOperandButtonClick was the same in each case
+        //so was moved to a general purpose processor
         private void ProcessTwoOperandButtonClick(string operation)
         {
             if (lblDisplay.Text != "")
@@ -349,7 +354,7 @@ namespace CalculatorLibraryCA2
         }
 
         private void btnClearDisplay_Click(object sender, EventArgs e)
-        {
+        {            
             ResetAllDefaults();
         }
 
@@ -366,6 +371,8 @@ namespace CalculatorLibraryCA2
             }
             else
             {
+                //special case, where 0 has already been entered, ignore subsequent 0
+                //presses so you dont have bunch of superfluous leading 0s
                 if (lblDisplay.Text == "0")
                 {
                     if (number == -1)
