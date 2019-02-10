@@ -36,6 +36,7 @@ namespace CalculatorLibraryCA2
         public frmCalculator()
         {
             InitializeComponent();
+            btnEquals.Focus();
         }
 
         private void ResetAllDefaults()
@@ -78,7 +79,7 @@ namespace CalculatorLibraryCA2
             //display space is limited, make sure result can be displayed
             if (strResult.Contains("E") || strResult.Length > 11)
             {
-                lblDisplay.Text = result.ToString("0.######E+0", CultureInfo.InvariantCulture);
+                lblDisplay.Text = result.ToString("0.####E+0", CultureInfo.InvariantCulture);
             }
             //below two ifs deal with special double values of infinity and NaN being the outcome
             //of calculation. if either received use messagebox to display result and Reset All Defaults
@@ -136,21 +137,25 @@ namespace CalculatorLibraryCA2
         private void btnCube_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("cube",  Calculator.Cube);
+            btnFocusStealer.Focus();
         }        
 
         private void btnInvert_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("invert", Calculator.Invert);
+            btnFocusStealer.Focus();
         }
 
         private void btnSquare_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("square", Calculator.Square);
+            btnFocusStealer.Focus();
         }
 
         private void btnSquareRoot_Click(object sender, EventArgs e)
         {
             ProcessOneOperandButtonClick("sqrt", Calculator.SquareRoot);
+            btnFocusStealer.Focus();
         }
 
         //Factorial is a special case in so far as it has so many restrictions as to valid inputs:
@@ -200,6 +205,7 @@ namespace CalculatorLibraryCA2
         private void btnFactorial_Click(object sender, EventArgs e)
         {
             ProcessFactorial();
+            btnFocusStealer.Focus();
         }
 
         //the plusminus operation is so simple that it can be processed on its own
@@ -207,9 +213,10 @@ namespace CalculatorLibraryCA2
         {
             if (lblDisplay.Text != "")
             {
-                lblDisplay.Text = Calculator.PlusMinus(double.Parse(lblDisplay.Text)).ToString();
+                DisplayResult(Calculator.PlusMinus(double.Parse(lblDisplay.Text)));
                 postOperation = true;
             }
+            btnFocusStealer.Focus();
         }
 
         //two operand methods have been delegatised
@@ -245,26 +252,31 @@ namespace CalculatorLibraryCA2
         private void btnPlus_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("add");
+            btnEquals.Focus();
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("sub");
+            btnEquals.Focus();
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("div");
+            btnEquals.Focus();
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("mul");
+            btnEquals.Focus();
         }
 
         private void btnPow_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("exp");
+            btnEquals.Focus();
         }
 
         private void ExecuteEqualsAction()
@@ -325,6 +337,7 @@ namespace CalculatorLibraryCA2
             {
                 ExecuteEqualsAction();
             }
+            btnEquals.Focus();
         }
 
         private void NumberButtonClick(int number)
@@ -364,63 +377,128 @@ namespace CalculatorLibraryCA2
         private void btnPoint_Click(object sender, EventArgs e)
         {
             NumberButtonClick(-1);
+            btnEquals.Focus();
         }
 
         private void btnZero_Click(object sender, EventArgs e)
         {
             NumberButtonClick(0);
+            btnEquals.Focus();
         }
 
         private void btnOne_Click(object sender, EventArgs e)
         {
             NumberButtonClick(1);
+            btnEquals.Focus();
         }
 
         private void btnTwo_Click(object sender, EventArgs e)
         {
             NumberButtonClick(2);
+            btnEquals.Focus();
         }
 
         private void btnThree_Click(object sender, EventArgs e)
         {
             NumberButtonClick(3);
+            btnEquals.Focus();
         }
 
         private void btnFour_Click(object sender, EventArgs e)
         {
             NumberButtonClick(4);
+            btnEquals.Focus();
         }
 
         private void btnFive_Click(object sender, EventArgs e)
         {
             NumberButtonClick(5);
+            btnEquals.Focus();
         }
 
         private void btnSix_Click(object sender, EventArgs e)
         {
             NumberButtonClick(6);
+            btnEquals.Focus();
         }
 
         private void btnSeven_Click(object sender, EventArgs e)
         {
             NumberButtonClick(7);
+            btnEquals.Focus();
         }
 
         private void btnEight_Click(object sender, EventArgs e)
         {
             NumberButtonClick(8);
+            btnEquals.Focus();
         }
 
         private void btnNine_Click(object sender, EventArgs e)
         {
             NumberButtonClick(9);
+            btnEquals.Focus();
         }
 
         private void btnClearDisplay_Click(object sender, EventArgs e)
         {
             ResetAllDefaults();
+            btnEquals.Focus();
         }
-
-
+        
+        private void frmCalculator_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '0':
+                    NumberButtonClick(0);
+                    break;
+                case '1':
+                    NumberButtonClick(1);
+                    break;
+                case '2':
+                    NumberButtonClick(2);
+                    break;
+                case '3':
+                    NumberButtonClick(3);
+                    break;
+                case '4':
+                    NumberButtonClick(4);
+                    break;
+                case '5':
+                    NumberButtonClick(5);
+                    break;
+                case '6':
+                    NumberButtonClick(6);
+                    break;
+                case '7':
+                    NumberButtonClick(7);
+                    break;
+                case '8':
+                    NumberButtonClick(8);
+                    break;
+                case '9':
+                    NumberButtonClick(9);
+                    break;
+                case '.':
+                    NumberButtonClick(-1);
+                    break;
+                case '+':
+                    ProcessTwoOperandButtonClick("add");
+                    break;
+                case '-':
+                    ProcessTwoOperandButtonClick("sub");
+                    break;
+                case '*':
+                    ProcessTwoOperandButtonClick("mul");
+                    break;
+                case '/':
+                    ProcessTwoOperandButtonClick("div");
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
 }

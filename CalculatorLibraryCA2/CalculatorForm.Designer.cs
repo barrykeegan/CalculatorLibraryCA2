@@ -76,7 +76,7 @@
             this.btnSeven.Name = "btnSeven";
             this.btnSeven.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnSeven.Size = new System.Drawing.Size(43, 42);
-            this.btnSeven.TabIndex = 1;
+            this.btnSeven.TabIndex = 16;
             this.btnSeven.Text = "7";
             this.btnSeven.UseVisualStyleBackColor = true;
             this.btnSeven.Click += new System.EventHandler(this.btnSeven_Click);
@@ -256,7 +256,7 @@
             this.btnEquals.Name = "btnEquals";
             this.btnEquals.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnEquals.Size = new System.Drawing.Size(99, 42);
-            this.btnEquals.TabIndex = 16;
+            this.btnEquals.TabIndex = 1;
             this.btnEquals.Text = "=";
             this.btnEquals.UseVisualStyleBackColor = true;
             this.btnEquals.Click += new System.EventHandler(this.btnEquals_Click);
@@ -385,9 +385,11 @@
             this.Controls.Add(this.btnEight);
             this.Controls.Add(this.btnSeven);
             this.Controls.Add(this.lblDisplay);
+            this.KeyPreview = true;
             this.Name = "frmCalculator";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Calculator";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmCalculator_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
