@@ -11,8 +11,9 @@ using System.Windows.Forms;
 
 namespace CalculatorLibraryCA2
 {
-    delegate double SingleOperand(double x);
-    delegate double TwoOperands(double x, double y);
+    delegate double SingleOperandCalculationFunctionDelegate(double x);
+    delegate double TwoOperandsCalculationFunctionDelegate(double x, double y);
+    delegate void ProcessSingletonDelegate();
 
     public partial class frmCalculator : Form
     {
@@ -119,6 +120,10 @@ namespace CalculatorLibraryCA2
             DisplayResult(Calculator.Cube(firstOperand));
         }
 
+
+        //Factorial is a special case in so far as it has so many restrictions as to valid inputs:
+        //integer only, non-negative
+        //Cannot easily be delgatised with the other singleton operations.
         private void ProcessFactorial()
         {
             if (firstOperand % 1 == 0)
@@ -140,7 +145,7 @@ namespace CalculatorLibraryCA2
         }
 
         //two operand methods in one place, to be delegatised
-        private void ProcessTwoOperandOperation(TwoOperands operation)
+        private void ProcessTwoOperandOperation(TwoOperandsCalculationFunctionDelegate operation)
         {
             DisplayResult(operation(firstOperand, secondOperand));
         }
@@ -230,74 +235,45 @@ namespace CalculatorLibraryCA2
             }
         }
 
-        private void btnCube_Click(object sender, EventArgs e)
+        //logic for OneOperandButtonClick is different depending of if the user is operating the calculator
+        //as: [singleton-operation]-[number]-[equals], or just: [number]-[singleton-operation]
+        private void ProcessOneOperandButtonClick(string operation, ProcessSingletonDelegate processor)
         {
             if (lblDisplay.Text == "")
             {
                 singletonOperator = true;
-                chosenOperator = "cube";
+                chosenOperator = operation;
             }
             else
             {
                 SetFirstOperand();
-                ProcessCube();
+                processor();
             }
+        }
+
+        private void btnCube_Click(object sender, EventArgs e)
+        {
+            ProcessOneOperandButtonClick("cube", ProcessCube);
         }
 
         private void btnFactorial_Click(object sender, EventArgs e)
         {
-            if(lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = "fact";
-            }
-            else
-            {
-                SetFirstOperand();
-                ProcessFactorial();
-            }
+            ProcessOneOperandButtonClick("fact", ProcessFactorial);
         }
 
         private void btnInvert_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = "invert";
-            }
-            else
-            {
-                SetFirstOperand();
-                ProcessInvert();
-            }
+            ProcessOneOperandButtonClick("invert", ProcessInvert);
         }
 
         private void btnSquare_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = "square";
-            }
-            else
-            {
-                SetFirstOperand();
-                ProcessSquare();
-            }
+            ProcessOneOperandButtonClick("square", ProcessSquare);
         }
 
         private void btnSquareRoot_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = "sqrt";
-            }
-            else
-            {
-                SetFirstOperand();
-                ProcessSquareRoot();
-            }
+            ProcessOneOperandButtonClick("sqrt", ProcessSquareRoot);
         }
 
         //the plusminus operation is so simple that it can be processed on its own
@@ -320,7 +296,6 @@ namespace CalculatorLibraryCA2
                 {
                     ExecuteEqualsAction();
                 }
-
                 singletonOperator = false;
                 chosenOperator = operation;
                 SetFirstOperand();

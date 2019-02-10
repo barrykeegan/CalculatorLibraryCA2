@@ -39,6 +39,8 @@ namespace CalculatorLibraryCA2
             return n1 / n2;
         }
 
+        //Factorial implemented to throw error, just as an exercise
+        //in error handling during testing. could easily have just returned NaN.
         public static double Factorial(double x)
         {
             //return 1; original

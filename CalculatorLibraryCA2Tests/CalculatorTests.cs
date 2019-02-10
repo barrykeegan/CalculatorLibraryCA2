@@ -86,7 +86,7 @@ namespace CalculatorLibraryCA2.Tests
             {
                 //Catch base exception in case exception other than expected is thrown
                 //test fails in that case
-                Assert.Fail("No exception was thrown");
+                Assert.Fail("Exception was thrown");
             }
         }
 
