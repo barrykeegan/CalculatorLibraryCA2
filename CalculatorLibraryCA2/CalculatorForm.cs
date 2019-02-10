@@ -13,7 +13,8 @@ namespace CalculatorLibraryCA2
 {
     delegate double SingleOperandCalculationFunctionDelegate(double x);
     delegate double TwoOperandsCalculationFunctionDelegate(double x, double y);
-    delegate void ProcessSingletonDelegate();
+    delegate void ProcessSingletonDelegate(SingleOperandCalculationFunctionDelegate operation);
+    
 
     public partial class frmCalculator : Form
     {
@@ -97,82 +98,167 @@ namespace CalculatorLibraryCA2
             {
                 lblDisplay.Text = result.ToString();
             }
-        }
-        
+        }       
+
         //singleton operations, in one place, to be delegatised
-        private void ProcessInvert()
+        private void ProcessOneOperandOperation(SingleOperandCalculationFunctionDelegate operation)
         {
-            DisplayResult(Calculator.Invert(firstOperand));          
+            DisplayResult(operation(firstOperand));
         }
 
-        private void ProcessSquare()
+        //logic for OneOperandButtonClick is different depending on if the user is operating the calculator
+        //as: [singleton-operation]-[number]-[equals], or just: [number]-[singleton-operation]
+        private void ProcessOneOperandButtonClick(string operation, SingleOperandCalculationFunctionDelegate calcFunction)
         {
-            DisplayResult(Calculator.Square(firstOperand));
+            if (lblDisplay.Text == "")
+            {
+                singletonOperator = true;
+                chosenOperator = operation;
+            }
+            else
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+
+                //to handle cases where equals action resulted in infinity or NaN
+                if (lblDisplay.Text != "")
+                {
+                    SetFirstOperand();
+                    ProcessOneOperandOperation(calcFunction);
+                }
+            }
         }
 
-        private void ProcessSquareRoot()
+        private void btnCube_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.SquareRoot(firstOperand));
+            ProcessOneOperandButtonClick("cube",  Calculator.Cube);
+        }        
+
+        private void btnInvert_Click(object sender, EventArgs e)
+        {
+            ProcessOneOperandButtonClick("invert", Calculator.Invert);
         }
 
-        private void ProcessCube()
+        private void btnSquare_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.Cube(firstOperand));
+            ProcessOneOperandButtonClick("square", Calculator.Square);
         }
 
+        private void btnSquareRoot_Click(object sender, EventArgs e)
+        {
+            ProcessOneOperandButtonClick("sqrt", Calculator.SquareRoot);
+        }
 
         //Factorial is a special case in so far as it has so many restrictions as to valid inputs:
         //integer only, non-negative
         //Cannot easily be delgatised with the other singleton operations.
         private void ProcessFactorial()
         {
-            if (firstOperand % 1 == 0)
+            if (lblDisplay.Text == "")
             {
-                if (firstOperand < 0)
-                {
-                    MessageBox.Show("The Factorial operation can only be run on non-negative values");
-                }
-                else
-                {
-                    DisplayResult(Calculator.Factorial(firstOperand));
-                }
+                singletonOperator = true;
+                chosenOperator = "fact";
             }
             else
             {
-                MessageBox.Show("The Factorial operation requires an integer value");
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+
+                //to handle cases where equals action resulted in infinity or NaN
+                if (lblDisplay.Text != "")
+                {
+                    SetFirstOperand();
+                    if (firstOperand % 1 == 0)
+                    {
+                        if (firstOperand < 0)
+                        {
+                            MessageBox.Show("The Factorial operation can only be run on non-negative values");
+                        }
+                        else
+                        {
+                            DisplayResult(Calculator.Factorial(firstOperand));
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("The Factorial operation requires an integer value");
+                    }
+                    ResetMainDefaults();
+                }
             }
-            ResetMainDefaults();
+            
         }
 
-        //two operand methods in one place, to be delegatised
+        private void btnFactorial_Click(object sender, EventArgs e)
+        {
+            ProcessFactorial();
+        }
+
+        //the plusminus operation is so simple that it can be processed on its own
+        private void btnPlusMinus_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                lblDisplay.Text = Calculator.PlusMinus(double.Parse(lblDisplay.Text)).ToString();
+                postOperation = true;
+            }
+        }
+
+        //two operand methods have been delegatised
         private void ProcessTwoOperandOperation(TwoOperandsCalculationFunctionDelegate operation)
         {
             DisplayResult(operation(firstOperand, secondOperand));
         }
 
-        private void ProcessAdd()
+        //logic for each TwoOperandButtonClick was the same in each case
+        //so was moved to a general purpose processor
+        private void ProcessTwoOperandButtonClick(string operation)
         {
-            DisplayResult(Calculator.Add(firstOperand, secondOperand));
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                
+                //to handle cases where equals action resulted in infinity or NaN
+                if (lblDisplay.Text != "")
+                {
+                    singletonOperator = false;
+                    chosenOperator = operation;
+                    SetFirstOperand();
+                    postOperation = true;
+                }
+            }
         }
 
-        private void ProcessSub()
+        private void btnPlus_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.Subtract(firstOperand, secondOperand));
+            ProcessTwoOperandButtonClick("add");
         }
 
-        private void ProcessMul()
+        private void btnMinus_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.Multiply(firstOperand, secondOperand));
+            ProcessTwoOperandButtonClick("sub");
         }
 
-        private void ProcessDiv()
+        private void btnDivide_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.Divide(firstOperand, secondOperand));
+            ProcessTwoOperandButtonClick("div");
         }
 
-        private void ProcessExp()
+        private void btnMultiply_Click(object sender, EventArgs e)
         {
-            DisplayResult(Calculator.BaseToExponent(firstOperand, secondOperand));
+            ProcessTwoOperandButtonClick("mul");
+        }
+
+        private void btnPow_Click(object sender, EventArgs e)
+        {
+            ProcessTwoOperandButtonClick("exp");
         }
 
         private void ExecuteEqualsAction()
@@ -183,19 +269,19 @@ namespace CalculatorLibraryCA2
                 switch (chosenOperator)
                 {
                     case "sqrt":
-                        ProcessSquareRoot();
+                        ProcessOneOperandOperation(Calculator.SquareRoot);
                         break;
                     case "fact":
                         ProcessFactorial();
                         break;
                     case "square":
-                        ProcessSquare();
+                        ProcessOneOperandOperation(Calculator.Square);
                         break;
                     case "cube":
-                        ProcessCube();
+                        ProcessOneOperandOperation(Calculator.Cube);
                         break;
                     case "invert":
-                        ProcessInvert();
+                        ProcessOneOperandOperation(Calculator.Invert);
                         break;
                     default:
                         break;
@@ -231,106 +317,8 @@ namespace CalculatorLibraryCA2
         {
             if (lblDisplay.Text != "" && chosenOperator != null)
             {
-                ExecuteEqualsAction();   
+                ExecuteEqualsAction();
             }
-        }
-
-        //logic for OneOperandButtonClick is different depending of if the user is operating the calculator
-        //as: [singleton-operation]-[number]-[equals], or just: [number]-[singleton-operation]
-        private void ProcessOneOperandButtonClick(string operation, ProcessSingletonDelegate processor)
-        {
-            if (lblDisplay.Text == "")
-            {
-                singletonOperator = true;
-                chosenOperator = operation;
-            }
-            else
-            {
-                SetFirstOperand();
-                processor();
-            }
-        }
-
-        private void btnCube_Click(object sender, EventArgs e)
-        {
-            ProcessOneOperandButtonClick("cube", ProcessCube);
-        }
-
-        private void btnFactorial_Click(object sender, EventArgs e)
-        {
-            ProcessOneOperandButtonClick("fact", ProcessFactorial);
-        }
-
-        private void btnInvert_Click(object sender, EventArgs e)
-        {
-            ProcessOneOperandButtonClick("invert", ProcessInvert);
-        }
-
-        private void btnSquare_Click(object sender, EventArgs e)
-        {
-            ProcessOneOperandButtonClick("square", ProcessSquare);
-        }
-
-        private void btnSquareRoot_Click(object sender, EventArgs e)
-        {
-            ProcessOneOperandButtonClick("sqrt", ProcessSquareRoot);
-        }
-
-        //the plusminus operation is so simple that it can be processed on its own
-        private void btnPlusMinus_Click(object sender, EventArgs e)
-        {
-            if (lblDisplay.Text != "")
-            {
-                lblDisplay.Text = Calculator.PlusMinus(double.Parse(lblDisplay.Text)).ToString();
-                postOperation = true;
-            }
-        }
-
-        //logic for each TwoOperandButtonClick was the same in each case
-        //so was moved to a general purpose processor
-        private void ProcessTwoOperandButtonClick(string operation)
-        {
-            if (lblDisplay.Text != "")
-            {
-                if (!singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = operation;
-                SetFirstOperand();
-                postOperation = true;
-            }
-        }
-
-        private void btnPlus_Click(object sender, EventArgs e)
-        {
-            ProcessTwoOperandButtonClick("add");
-        }
-
-        private void btnMinus_Click(object sender, EventArgs e)
-        {
-            ProcessTwoOperandButtonClick("sub");
-        }
-
-        private void btnDivide_Click(object sender, EventArgs e)
-        {
-            ProcessTwoOperandButtonClick("div");
-        }
-
-        private void btnMultiply_Click(object sender, EventArgs e)
-        {
-            ProcessTwoOperandButtonClick("mul");
-        }
-
-        private void btnPow_Click(object sender, EventArgs e)
-        {
-            ProcessTwoOperandButtonClick("exp");
-        }
-
-        private void btnClearDisplay_Click(object sender, EventArgs e)
-        {            
-            ResetAllDefaults();
         }
 
         private void NumberButtonClick(int number)
@@ -364,7 +352,12 @@ namespace CalculatorLibraryCA2
                     lblDisplay.Text += number == -1 ? "." : number.ToString();
                 }
             }
-            
+        }
+
+        // Treating a decimal point as a number
+        private void btnPoint_Click(object sender, EventArgs e)
+        {
+            NumberButtonClick(-1);
         }
 
         private void btnZero_Click(object sender, EventArgs e)
@@ -417,10 +410,9 @@ namespace CalculatorLibraryCA2
             NumberButtonClick(9);
         }
 
-        // Treating a decimal point as a number
-        private void btnPoint_Click(object sender, EventArgs e)
+        private void btnClearDisplay_Click(object sender, EventArgs e)
         {
-            NumberButtonClick(-1);            
-        }        
+            ResetAllDefaults();
+        }
     }
 }
