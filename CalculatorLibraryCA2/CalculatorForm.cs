@@ -326,77 +326,26 @@ namespace CalculatorLibraryCA2
         private void btnPlus_Click(object sender, EventArgs e)
         {
             ProcessTwoOperandButtonClick("add");
-            /*if (lblDisplay.Text != "")
-            {
-                if( !singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = "add";
-                SetFirstOperand();
-                postOperation = true;
-            }*/
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text != "")
-            {
-                if (!singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = "sub";
-                SetFirstOperand();
-                postOperation = true;
-            }
+            ProcessTwoOperandButtonClick("sub");
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text != "")
-            {
-                if (!singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = "div";
-                SetFirstOperand();
-                postOperation = true;
-            }
+            ProcessTwoOperandButtonClick("div");
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text != "")
-            {
-                if (!singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = "mul";
-                SetFirstOperand();
-                postOperation = true;
-            }
+            ProcessTwoOperandButtonClick("mul");
         }
 
         private void btnPow_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text != "")
-            {
-                if (!singletonOperator && chosenOperator != null)
-                {
-                    ExecuteEqualsAction();
-                }
-                singletonOperator = false;
-                chosenOperator = "exp";
-                SetFirstOperand();
-                postOperation = true;
-            }
+            ProcessTwoOperandButtonClick("exp");
         }
 
         private void btnClearDisplay_Click(object sender, EventArgs e)
