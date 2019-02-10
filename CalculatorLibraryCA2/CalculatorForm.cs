@@ -100,7 +100,7 @@ namespace CalculatorLibraryCA2
             }
         }       
 
-        //singleton operations, in one place, to be delegatised
+        //singleton operations delegatised
         private void ProcessOneOperandOperation(SingleOperandCalculationFunctionDelegate operation)
         {
             DisplayResult(operation(firstOperand));
@@ -117,12 +117,14 @@ namespace CalculatorLibraryCA2
             }
             else
             {
+                //a previous two operand calculation had been entered, the result of which will
+                //be used for this singletonoperator calculation
                 if (!singletonOperator && chosenOperator != null)
                 {
                     ExecuteEqualsAction();
                 }
 
-                //to handle cases where equals action resulted in infinity or NaN
+                //to handle cases where equalsaction resulted in infinity or NaN
                 if (lblDisplay.Text != "")
                 {
                     SetFirstOperand();
@@ -163,6 +165,8 @@ namespace CalculatorLibraryCA2
             }
             else
             {
+                //a previous two operand calculation had been entered, the result of which will
+                //be used for this factorial calculation
                 if (!singletonOperator && chosenOperator != null)
                 {
                     ExecuteEqualsAction();
@@ -220,6 +224,8 @@ namespace CalculatorLibraryCA2
         {
             if (lblDisplay.Text != "")
             {
+                //a previous two operand calculation had been entered, the result of which will
+                //be used for the next calculation
                 if (!singletonOperator && chosenOperator != null)
                 {
                     ExecuteEqualsAction();
@@ -414,5 +420,7 @@ namespace CalculatorLibraryCA2
         {
             ResetAllDefaults();
         }
+
+
     }
 }
