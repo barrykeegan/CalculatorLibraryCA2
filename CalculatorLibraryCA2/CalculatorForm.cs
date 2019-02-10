@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,6 +51,24 @@ namespace CalculatorLibraryCA2
             firstOperand = double.Parse(lblDisplay.Text);
         }
 
+        private void SetSecondOperand()
+        {
+            secondOperand = double.Parse(lblDisplay.Text);
+        }
+
+        private void DisplayResult(double result)
+        {
+            string strResult = result.ToString();
+            if (strResult.Contains("E") || strResult.Length > 11)
+            {
+                lblDisplay.Text = result.ToString("0.#####E+0", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                lblDisplay.Text = result.ToString();
+            }
+        }
+
         private void ProcessInvert()
         {
             double result = Calculator.Invert(firstOperand);
@@ -61,7 +80,7 @@ namespace CalculatorLibraryCA2
             }
             else
             {
-                lblDisplay.Text = result.ToString();
+                DisplayResult(result);
                 ResetMainDefaults();
             }            
         }
@@ -73,13 +92,11 @@ namespace CalculatorLibraryCA2
                 if (firstOperand < 0)
                 {
                     MessageBox.Show("The Factorial operation can only be run on non-negative values");
-                    chosenOperator = null;
                 }
                 else
                 {
-                    lblDisplay.Text = Calculator.Factorial((int)firstOperand).ToString();
+                    DisplayResult(Calculator.Factorial(firstOperand));
                     postOperation = true;
-                    ResetMainDefaults();
                 }
             }
             else
@@ -91,62 +108,126 @@ namespace CalculatorLibraryCA2
         
         private void ProcessSquare()
         {
-            lblDisplay.Text = Calculator.Square(firstOperand).ToString();
+            DisplayResult(Calculator.Square(firstOperand));
             postOperation = true;
             ResetMainDefaults();
         }
 
         private void ProcessSquareRoot()
         {
-            lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
-            postOperation = true;
-            ResetMainDefaults();
+            double result = Calculator.SquareRoot(firstOperand);
+            if (result == double.NaN)
+            {
+                MessageBox.Show("Result was Not a Number. Were you trying to get the Square Root of a negative number?");
+                ResetAllDefaults();
+            }
+            else
+            {
+                DisplayResult(result);
+                postOperation = true;
+                ResetMainDefaults();
+            }            
         }
 
         private void ProcessCube()
         {
-            lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
+            DisplayResult(Calculator.Cube(firstOperand));
             postOperation = true;
             ResetMainDefaults();
         }
 
+        private void ProcessAdd()
+        {
+            DisplayResult(Calculator.Add(firstOperand, secondOperand));
+            postOperation = true;
+            ResetMainDefaults();
+        }
+
+        private void ProcessSub()
+        {
+            DisplayResult(Calculator.Subtract(firstOperand, secondOperand));
+            postOperation = true;
+            ResetMainDefaults();
+        }
+
+        private void ProcessMul()
+        {
+            DisplayResult(Calculator.Multiply(firstOperand, secondOperand));
+            postOperation = true;
+            ResetMainDefaults();
+        }
+
+        private void ProcessDiv()
+        {
+            DisplayResult(Calculator.Divide(firstOperand, secondOperand));
+            postOperation = true;
+            ResetMainDefaults();
+        }
+
+        private void ProcessExp()
+        {
+            DisplayResult(Calculator.BaseToExponent(firstOperand, secondOperand));
+            postOperation = true;
+            ResetMainDefaults();
+        }
+
+        private void ExecuteEqualsAction()
+        {
+            if (singletonOperator)
+            {
+                SetFirstOperand();
+                switch (chosenOperator)
+                {
+                    case "sqrt":
+                        ProcessSquareRoot();
+                        break;
+                    case "fact":
+                        ProcessFactorial();
+                        break;
+                    case "square":
+                        ProcessSquare();
+                        break;
+                    case "cube":
+                        ProcessCube();
+                        break;
+                    case "invert":
+                        ProcessInvert();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                SetSecondOperand();
+                switch (chosenOperator)
+                {
+                    case "add":
+                        ProcessAdd();
+                        break;
+                    case "sub":
+                        ProcessSub();
+                        break;
+                    case "mul":
+                        ProcessMul();
+                        break;
+                    case "div":
+                        ProcessDiv();
+                        break;
+                    case "exp":
+                        ProcessExp();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         private void btnEquals_Click(object sender, EventArgs e)
         {
-            if (lblDisplay.Text.Length != 0)
+            if (lblDisplay.Text != "" && chosenOperator != null)
             {
-                if (chosenOperator != null)
-                {
-                    if (singletonOperator)
-                    {
-                        SetFirstOperand();
-                        switch (chosenOperator)
-                        {
-                            case "sqrt":
-                                ProcessSquareRoot();
-                                //lblDisplay.Text = Calculator.SquareRoot(firstOperand).ToString();
-                                break;
-                            case "fact":
-                                ProcessFactorial();
-                                break;
-                            case "square":
-                                ProcessSquare();
-                                break;
-                            case "cube":
-                                ProcessCube();
-                                //lblDisplay.Text = Calculator.Cube(firstOperand).ToString();
-                                break;
-                            case "invert":
-                                ProcessInvert();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        throw new NotImplementedException("Haven't implement non-singleton operators yet, execution shouldn't reach here until I do.");
-                    }
-                }
+                ExecuteEqualsAction();   
             }
         }
 
@@ -225,6 +306,82 @@ namespace CalculatorLibraryCA2
             if (lblDisplay.Text != "")
             {
                 lblDisplay.Text = Calculator.PlusMinus(double.Parse(lblDisplay.Text)).ToString();
+                postOperation = true;
+            }
+        }
+
+        private void btnPlus_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if( !singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                singletonOperator = false;
+                chosenOperator = "add";
+                SetFirstOperand();
+                postOperation = true;
+            }
+        }
+
+        private void btnMinus_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                singletonOperator = false;
+                chosenOperator = "sub";
+                SetFirstOperand();
+                postOperation = true;
+            }
+        }
+
+        private void btnDivide_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                singletonOperator = false;
+                chosenOperator = "div";
+                SetFirstOperand();
+                postOperation = true;
+            }
+        }
+
+        private void btnMultiply_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                singletonOperator = false;
+                chosenOperator = "mul";
+                SetFirstOperand();
+                postOperation = true;
+            }
+        }
+
+        private void btnPow_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != "")
+            {
+                if (!singletonOperator && chosenOperator != null)
+                {
+                    ExecuteEqualsAction();
+                }
+                singletonOperator = false;
+                chosenOperator = "exp";
+                SetFirstOperand();
+                postOperation = true;
             }
         }
 
@@ -235,29 +392,34 @@ namespace CalculatorLibraryCA2
 
         private void NumberButtonClick(int number)
         {
+            //After an operation button is pressed, we need to re-initialise
+            //the lblDisplay with the new number pressed
             if (postOperation)
             {
-                ResetAllDefaults();
-                lblDisplay.Text = number.ToString();
+                //if -1 passed in as number, changed display to "0." as dot has been clicked
+                lblDisplay.Text = number == -1 ? "0." : number.ToString();
+                //change to false as last button pressed not a command button
+                postOperation = false;
             }
             else
             {
-                if (lblDisplay.Text == "")
+                if (lblDisplay.Text == "0")
                 {
-                    lblDisplay.Text = number.ToString();
-                }
-                else if (lblDisplay.Text == "0")
-                {
-                    if (number != 0)
+                    if (number == -1)
+                    {
+                        lblDisplay.Text += ".";
+                    }
+                    else if (number != 0)
                     {
                         lblDisplay.Text = number.ToString();
                     }
                 }
                 else if (lblDisplay.Text.Length < 8)
                 {
-                    lblDisplay.Text += number.ToString();
+                    lblDisplay.Text += number == -1 ? "." : number.ToString();
                 }
             }
+            
         }
 
         private void btnZero_Click(object sender, EventArgs e)
@@ -310,19 +472,10 @@ namespace CalculatorLibraryCA2
             NumberButtonClick(9);
         }
 
+        // Treating a decimal point as a number
         private void btnPoint_Click(object sender, EventArgs e)
         {
-            if (!lblDisplay.Text.Contains("."))
-            {
-                if (lblDisplay.Text.Length == 0)
-                {
-                    lblDisplay.Text = "0.";
-                }
-                else if (lblDisplay.Text.Length < 7)
-                {
-                    lblDisplay.Text += ".";
-                }
-            }
-        }
+            NumberButtonClick(-1);            
+        }        
     }
 }

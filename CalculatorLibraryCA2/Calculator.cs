@@ -39,13 +39,13 @@ namespace CalculatorLibraryCA2
             return n1 / n2;
         }
 
-        public static int Factorial(int x)
+        public static double Factorial(double x)
         {
             //return 1; original
             if (x > -1)
             {
-                int fact = 1;
-                for(int i = x; i > 0; i--)
+                double fact = 1;
+                for(double i = x; i > 0; i--)
                 {
                     fact *= i;
                 }
